@@ -1,4 +1,3 @@
-
 int mostra(char* ficheiro);
 int copia(char* ficheiro);
 int acrescenta(char* ficheiro);
