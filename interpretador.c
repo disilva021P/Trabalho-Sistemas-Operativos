@@ -34,7 +34,11 @@ int interpretador(){
             printf("Ficheiro não existe\n");
             continue;
         }
-        if (strcmp(comando,"acrescenta") && leitura != 2) {
+        if (!strcmp(comando,"acrescenta") && leitura != 2) {
+            printf("Erro a ler comando.\n");
+            continue;
+        }
+        if (strcmp(comando,"acrescenta") && leitura != 3) {
             printf("Erro a ler comando.\n");
             continue;
         }
