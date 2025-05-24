@@ -1,0 +1,5 @@
+*.out
+*.copia
+interpretador
+.vscode/
+
