@@ -3,18 +3,29 @@
 #include"interpretador.h"
 #include"funcoes.h"
 int interpretador(){
-    char comando[11], ficheiro[255];
+    char comando[11], ficheiro[255],ficheiroLeitura[255],linha[521];
+    int leitura;
     printf("Interpretador ligado\n");
     while(1){
         printf("%% "); 
-        int leitura = scanf("%s %s", comando, ficheiro);
-        printf("%d\n",leitura);
-        if (leitura != 2) {
+
+        if (fgets(linha, sizeof(linha), stdin) == NULL) {
+            printf("Erro a ler input\n");
+            return 1;
+        }
+        // Remove \n do final, se existir
+        linha[strcspn(linha, "\n")] = '\0';      
+        int leitura=sscanf(linha, "%s %s %[^\n]", comando, ficheiro, ficheiroLeitura);
+        if(strcmp(comando,"termina")==0){
+            break;
+        }
+        if (strcmp(comando,"acrescenta") && leitura != 2) {
             printf("Erro a ler comando.\n");
             continue;
         }
-        if(strcmp(comando,"termina")==0){
-            break;
+        if(ficheiro==NULL){
+            printf("Identifique um ficheiro!\n");
+            continue;
         }
         if(!ficheiroExiste(ficheiro)){
             printf("Ficheiro não existe\n");
@@ -28,7 +39,7 @@ int interpretador(){
         }else if(strcmp(comando,"copia")==0){
             copia(ficheiro);
         }else if(strcmp(comando,"acrescenta")==0){
-            acrescenta(ficheiro);
+            acrescenta(ficheiro,ficheiroLeitura);
         }else if(strcmp(comando,"conta")==0){
             conta(ficheiro);
         }else if(strcmp(comando,"apaga")==0){
